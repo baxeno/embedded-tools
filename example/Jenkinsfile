@@ -1,0 +1,116 @@
+#!/usr/bin/env groovy
+
+def props
+def pipeline_docker_image
+def pipeline_docker_version
+def product = "box.txt"
+
+// Bootstrap - Get docker image and version.
+node {
+  checkout scm
+  props = readProperties(file: 'gradle.properties')
+  pipeline_docker_image = props['pipelineDockerImageName']
+  pipeline_docker_version = props['pipelineDockerImageVersion']
+}
+
+pipeline {
+  options {
+    disableConcurrentBuilds()
+    buildDiscarder(logRotator(artifactDaysToKeepStr: '60',
+                              artifactNumToKeepStr: '30',
+                              daysToKeepStr: '60',
+                              numToKeepStr: '30'))
+    timeout(time: 2, unit: 'HOURS')
+    timestamps()
+  }
+
+  agent {
+    docker {
+      image "$pipeline_docker_image:$pipeline_docker_version"
+      // WORKSPACE is an environment variable inside the docker container.
+      args "-e HOME=\$WORKSPACE --entrypoint='' --security-opt seccomp:unconfined"
+      label 'linux && docker'
+      reuseNode true
+    }
+  }
+
+  stages {
+    stage('Setup Workspace') {
+      options {
+        timeout(time: 300, unit: 'SECONDS')
+      }
+      steps {
+        sh 'env'
+        // ptxdist uses git for some operations
+        sh 'git config --global user.email "jenkins@acme.com"'
+        sh 'git config --global user.name "Jenkins Slave"'
+      }
+    }
+
+    stage('Static Analysis') {
+      options {
+        timeout(time: 300, unit: 'SECONDS')
+      }
+      steps {
+        sh 'shellcheck build.sh'
+      }
+    }
+
+    stage('Build') {
+      options {
+        timeout(time: 600, unit: 'SECONDS')
+      }
+      steps {
+        sh "ptxdist --help"
+        sh "./build.sh > $product"
+      }
+    }
+
+    stage('Publish') {
+      parallel {
+        stage('Dry-run') {
+          options {
+            timeout(time: 300, unit: 'SECONDS')
+          }
+          when {
+            not {
+              anyOf {
+                branch "release/*"
+                branch "master"
+              }
+            }
+          }
+          steps {
+            sh "ls -lah $product"
+          }
+        }
+
+        stage('Artifactory') {
+          options {
+            timeout(time: 300, unit: 'SECONDS')
+          }
+          when {
+            anyOf {
+              branch "release/*"
+              branch "master"
+            }
+          }
+          steps {
+            sh "cat $product"
+          }
+        }
+      }
+    }
+  }
+
+  post {
+    success {
+      archiveArtifacts(artifacts: 'box.txt')
+    }
+    cleanup {
+      deleteDir()
+    }
+  }
+}
+
+// vim: ft=groovy
