@@ -1,5 +1,13 @@
 # baxeno/embedded-tools
 
+This container shows how to create a build environment that can be used both by CI servers and developers.
+Developers would normally use `docker_workspace.sh` to bootstrap all needed docker parameters or alternative use YAML with docker-compose.
+CI servers normally don't like entry-point scripts so disable it with `--entrypoint=''`.
+
+Default seccomp can block needed system calls, so it can be handy to test with `--security-opt seccomp:unconfined`.
+
+> :warning: Create custom seccomp profile. See [Docker secure computing mode](https://docs.docker.com/engine/security/seccomp/).
+
 ---
 :unicorn: Fairy tale
 ---
