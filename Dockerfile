@@ -140,4 +140,4 @@ ENV LANGUAGE en_US.UTF-8
 ENV LC_ALL en_US.UTF-8
 
 COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
-ENTRYPOINT [ "docker-entrypoint.sh" ]
+ENTRYPOINT ["docker-entrypoint.sh"]
