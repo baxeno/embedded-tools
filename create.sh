@@ -8,8 +8,10 @@ IMAGE="baxeno/embedded-tools"
 VERSION="v0.1.0"
 FULL_IMAGE="${IMAGE}:${VERSION}"
 
+echo "### Dockerfile linting"
 docker run -i --rm "${DOCKERFILE_LINTER}" < Dockerfile
 
+echo "### Docker build"
 docker build --tag "${FULL_IMAGE}" \
     --build-arg IMAGE_VERSION="${VERSION}" \
     --build-arg IMAGE_NAME="${IMAGE}" \
@@ -19,4 +21,6 @@ docker build --tag "${FULL_IMAGE}" \
     --pull \
     --no-cache .
 
+echo "### Docker push image to public hub"
+docker login -u baxeno
 docker push "${FULL_IMAGE}"
