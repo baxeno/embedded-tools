@@ -13,9 +13,10 @@ LABEL org.label-schema.name=$IMAGE_NAME
 LABEL org.label-schema.description="Build and development environment for embedded Linux products"
 LABEL org.label-schema.vcs-url=$GIT_REMOTE
 LABEL org.label-schema.vcs-ref=$GIT_COMMIT
-LABEL org.label-schema.vendor="Acme Corporation"
+LABEL org.label-schema.vendor="Baxeno Technologies"
 LABEL org.label-schema.version=$IMAGE_VERSION
 
+# ptxdist 2018.12.0 requires python2
 RUN dnf install -y \
     autoconf \
     automake \
@@ -45,6 +46,7 @@ RUN dnf install -y \
     patch \
     perl-XML-Parser \
     procps-ng \
+    python2 \
     python3-Cython \
     python3-devel \
     python3-matplotlib \
