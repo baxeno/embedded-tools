@@ -29,6 +29,12 @@ Example of using this docker container can be seen in [example/Jenkinsfile](exam
 Add `registryUrl` and `registryCredentialsId` properties under `pipeline.agent.docker` in the `Jenkinsfile`.
 
 ---
+Developer workspace
+---
+
+Example of using this docker container can be seen in [example/docker_workspace.sh](example/docker_workspace.sh).
+
+---
 Useful links to additional documentation
 ---
 
