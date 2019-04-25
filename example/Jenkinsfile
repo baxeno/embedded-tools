@@ -61,7 +61,7 @@ pipeline {
         timeout(time: 600, unit: 'SECONDS')
       }
       steps {
-        sh "ptxdist --help"
+        sh "ptxdist --version"
         sh "./build.sh > $product"
       }
     }
