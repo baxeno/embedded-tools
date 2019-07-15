@@ -134,7 +134,7 @@ RUN git clone -b master https://github.com/ncopa/su-exec.git \
       && \
     rm -rf su-exec
 
-RUN echo 'export PS1="[\e[1;34m\]DOCKER\[\e[0;37m\]][\u@\h \W]$ "' >> /home/developer/.bash_profile
+RUN echo 'export PS1="[\[\e[1;34m\]DOCKER\[\e[0;37m\]][\u@\h \W]$ "' >> /home/developer/.bash_profile
 
 ENV TERM xterm-256color
 ENV LANG en_US.UTF-8
