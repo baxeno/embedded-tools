@@ -5,7 +5,7 @@ set -u # Exit script if using an uninitialized variable.
 
 DOCKERFILE_LINTER="hadolint/hadolint:v1.13.0"
 IMAGE="baxeno/embedded-tools"
-VERSION="v0.1.0"
+VERSION="v0.2.0"
 FULL_IMAGE="${IMAGE}:${VERSION}"
 
 echo "### Dockerfile linting"
