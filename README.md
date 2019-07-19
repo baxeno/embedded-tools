@@ -10,6 +10,8 @@ Default seccomp can block needed system calls, so it can be handy to test with `
 
 **Docker Hub:** [baxeno/embedded-tools](https://hub.docker.com/r/baxeno/embedded-tools)
 
+**Changelog for humans:** [CHANGELOG.md](CHANGELOG.md)
+
 ---
 :unicorn: Fairy tale
 ---
