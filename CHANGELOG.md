@@ -6,7 +6,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.2.0] - 2019-07-xx [Unreleased]
 ### Fixed
-- PS1 line wrapping
+- PS1 line wrapping.
+### Changed
+- Base image version bump to `fedora:30` (from 29).
 
 
 ## [0.1.0] - 2019-04-21

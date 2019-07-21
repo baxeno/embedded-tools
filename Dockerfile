@@ -1,4 +1,4 @@
-FROM fedora:29
+FROM fedora:30
 LABEL maintainer="Bruno Thomsen <bruno.thomsen@gmail.com>"
 
 ARG IMAGE_VERSION=0.0.0
