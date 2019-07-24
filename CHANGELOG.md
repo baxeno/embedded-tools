@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - PS1 line wrapping.
 ### Changed
 - Base image version bump to `fedora:30` (from 29).
-
+- Dockerfile linting tool hadolint bumped to v1.17.1.
 
 ## [0.1.0] - 2019-04-21
 ### Added
